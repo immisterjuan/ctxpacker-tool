@@ -1,0 +1,83 @@
+{
+  "name": "ctxpacker-tool",
+  "version": "0.1.0",
+  "description": "Generate deterministic, agent-targeted context packs from your codebase for AI coding assistants (Copilot, Cursor, Claude, Codex, Gemini)",
+  "keywords": [
+    "ai",
+    "context",
+    "copilot",
+    "cursor",
+    "claude",
+    "codex",
+    "gemini",
+    "cli",
+    "typescript",
+    "ast",
+    "context-pack",
+    "llm",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "ctxpacker-tool contributors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ctxpacker-tool.git"
+  },
+  "homepage": "https://github.com/yourusername/ctxpacker-tool#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/ctxpacker-tool/issues"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cli.js",
+      "types": "./dist/cli.d.ts"
+    }
+  },
+  "bin": {
+    "ctxpacker-tool": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json && node scripts/postbuild.js",
+    "clean": "rimraf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src tests --ext .ts --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "pack:check": "npm run build && npm pack --dry-run && node scripts/check-pack.js",
+    "release:dry": "npm publish --dry-run --access public",
+    "release": "npm publish --access public --provenance",
+    "prepublishOnly": "npm run clean && npm run build && npm run test && npm run lint && npm run typecheck",
+    "audit:deps": "npm audit --audit-level=moderate"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "chokidar": "^3.6.0",
+    "commander": "^12.1.0",
+    "fast-glob": "^3.3.2",
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.1",
+    "ts-morph": "^23.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/parser": "^7.17.0",
+    "eslint": "^8.57.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.3"
+  }
+}
